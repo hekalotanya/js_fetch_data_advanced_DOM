@@ -48,26 +48,22 @@ getPhones()
     getAllSuccessfulDetails(data.map(element => element.id))
       .then(result => {
         console.log(result);
-        makeMessage('all-successful', 'All Successful', result.map(element => element.value.name));
+        makeMessage('all-successful', 'All Successful', result
+          .filter(element => element.status ==='fulfilled')
+          .map(element => element.value.name));
       });
 
     const resultArray = [];
 
-    getThreeFastestDetails(data.map(element => element.id))
-      .then(result1 => {
-        resultArray.push(result1);
-      });
+    for (let i = 0; i < 3; i++) {
+      getThreeFastestDetails(data.map(element => element.id))
+        .then(result => {
+          resultArray.push(result);
+        });
+    }
 
-    getThreeFastestDetails(data.map(element => element.id))
-      .then(result2 => {
-        resultArray.push(result2);
-      });
+    makeMessage('three-received', 'First 3 responses', resultArray.map(element => element.name));
 
-    getThreeFastestDetails(data.map(element => element.id))
-      .then(result3 => {
-        resultArray.push(result3);
-        makeMessage('three-received', 'First 3 responses', resultArray.map(element => element.name));
-      });
   });
 
 const makeMessage = (classMessage, messageResult, result) => {
