@@ -47,7 +47,8 @@ getPhones()
 
     getAllSuccessfulDetails(data.map(element => element.id))
       .then(result => {
-        makeMessage('all-successful', 'All Successful', result.map(element => element.name));
+        console.log(result);
+        makeMessage('all-successful', 'All Successful', result.map(element => element.value.name));
       });
 
     const resultArray = [];
